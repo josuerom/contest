@@ -1,5 +1,5 @@
 # AutomatizaciónRPC.py: Creación de directorios y archivos fuentes para Rounds de la RPC
-# autor: josuerom fecha: 27/06/23 15:34:40
+# autor: josuerom  -  fecha: 27/06/23 15:34:40
 import os
 import glob
 import shutil
@@ -7,75 +7,75 @@ import time
 import subprocess
 
 
-def obtenerPDF(ubicacion_archivo, round_number):
-    archivo_pdf = glob.glob(os.path.join(
-        ubicacion_archivo, f"*RPC{round_number}*.pdf"))
-    if len(archivo_pdf) > 0:
-        return archivo_pdf[0]
+def obtenerPDF(directorio_pdf, round):
+    nombre_pdf = glob.glob(os.path.join(
+        directorio_pdf, f"*RPC{round}*.pdf"))
+    if len(nombre_pdf) > 0:
+        return nombre_pdf[0]
     else:
         return None
 
 
 def crear_dirs(round, n):
-    ruta_base = r"d:\workspace\contests\rpc\2023"
-    nom_dir = f"Rnd{round}"
-    ruta_dir = os.path.join(ruta_base, nom_dir)
-    ruta_del_archivo = r"c:\users\jr3\downloads"
-    # ruta_del_archivo = r"c:\users\$HOME$\downloads"
+    ruta_base_rpc = r"d:\workspace\contests\rpc"
 
-    if not os.path.exists(ruta_dir) and n != 0:
-        archivo_pdf = obtenerPDF(ruta_del_archivo, round)
+    ruta_base = os.path.join(ruta_base_rpc, "2023")
+    if not os.path.exists(ruta_base):
+        os.makedirs(ruta_base)
 
-        if archivo_pdf is not None:
-            nombre_real = os.path.basename(archivo_pdf)
-            ruta_archivo_pdf = os.path.join(ruta_del_archivo, nombre_real)
-            ruta_de_destino = os.path.join(ruta_dir, nombre_real)
-            shutil.move(ruta_archivo_pdf, ruta_de_destino)
-            print(f"Se han creado los archivos.")
-        else:
-            print(
-                f"\nNo se encontró el archivo PDF en el directorio ~\Descargas o ~\Downloads.")
-            option = int(input("Presione 1 para continuar o 2 para salir -> "))
-            if option == 2:
-                return
+    nombre_dir = f"Rnd{round}"
+    ruta_dir = os.path.join(ruta_base, nombre_dir)
+    dir_pdf = r"c:\users\jr3\downloads"
 
+    if os.path.exists(ruta_dir):
+        print(f"El directorio {ruta_dir} ya existe 😞.")
+        return
+    else:
         os.makedirs(ruta_dir)
 
-        ruta_archivo_debug = os.path.join(ruta_dir, "debug.h")
-        shutil.copyfile(r"d:\workspace\templates\debug.h", ruta_archivo_debug)
+    nombre_pdf = obtenerPDF(dir_pdf, round)
 
-        lista_id = ["A", "B", "C", "D"]
-        # template_java = "d:\workspace\templates\tem.java"
-
-        for i in range(0, n):
-            ruta_arc = os.path.join(ruta_dir, lista_id[i])
-            os.makedirs(ruta_arc)
-            ruta_archivo_destino = os.path.join(
-                ruta_arc, f"{lista_id[i]}.java")
-            open(ruta_archivo_destino, 'x')
-            # shutil.copyfile(template_java, ruta_archivo_destino)
-
-            ruta_archivo_destino = os.path.join(ruta_arc, f"{lista_id[i]}.cpp")
-            open(ruta_archivo_destino, 'x')
-
-        print(f"\nSe iniciará VSCode", end='')
-        time.sleep(0.15)
-        stop = 4
-        for i in range(0, stop):
-            time.sleep(0.45)
-            if i != stop - 1:
-                print(f".", end='', flush=True)
-            else:
-                print(f"😁", flush=True)
-
-        # comando = f"code {ruta_dir}"
-        comando = f"code-insiders {ruta_dir}"
-        subprocess.run(comando, shell=True)
+    if nombre_pdf is not None:
+        nombre_del_pdf = os.path.basename(nombre_pdf)
+        get_pdf = os.path.join(dir_pdf, nombre_del_pdf)
+        shutil.move(get_pdf, ruta_dir)
+        print(f"Se han creado los archivos.")
     else:
-        print(f"El dir Rnd{round} ya existe 😞.")
+        print("\nNo se encontró el archivo PDF en el directorio ~\Descargas o ~\Downloads.")
+        option = int(input("Presione 1 para continuar o 2 para salir -> "))
+        if option == 2:
+            return
+
+    ruta_archivo_debug = os.path.join(ruta_dir, "debug.h")
+    shutil.copyfile(r"d:\workspace\templates\debug.h", ruta_archivo_debug)
+    template_2bits = r"d:\workspace\templates\template_2bits.cpp"
+
+    lista_id = ["A", "B", "C", "D", "E"]
+
+    for i in range(n):
+        ruta_rpc = os.path.join(ruta_dir, lista_id[i])
+        os.makedirs(ruta_rpc)
+        archivo_base = os.path.join(ruta_rpc, f"{lista_id[i]}.cpp")
+        shutil.copyfile(template_2bits, archivo_base)
+        archivo_base = os.path.join(ruta_rpc, "in1")
+        with open(archivo_base, 'x'):
+            pass
+
+    print("\nSe iniciará VSCode", end='')
+    stop = 4
+    for i in range(stop):
+        time.sleep(0.20)
+        if i != stop - 1:
+            print(".", end='', flush=True)
+        else:
+            print("😁", flush=True)
+
+    # comando = f"code {ruta_dir}"
+    comando = f"code-insiders {ruta_dir}"
+    subprocess.run(comando, shell=True)
 
 
 if __name__ == '__main__':
-    s = input("Round number -> ")
+    s = int(input("Round number -> "))
     n = int(input("How many problems -> "))
     crear_dirs(s, n)
