@@ -3,7 +3,7 @@
  *  █▀█  █▀▀▄ ─▀─ ▀▀█▀▀ █▀▀ ▄▀ ▀▄
  *  ─▄▀  █▀▀▄ ▀█▀ ──█── ▀▀█ █─ ─█
  *  █▄▄  ▀▀▀─ ▀▀▀ ──▀── ▀▀▀ ▀▄ ▄▀
- *  created: 12/08/23 16:55:06
+ *  created: 20/08/23 20:45:50
  **/
 import java.io.*;
 import java.util.*;
@@ -23,12 +23,7 @@ public class Sun {
    static FastReader io = new FastReader();
 
    public static void solve(int ds, int ys, int dm, int ym) {
-      int mcm = MCM(ys, ym);
-      int x = max(ds, dm);
-      while ((x % mcm != ds % mcm) || (x % ym != dm % ym)) {
-         x++;
-      }
-      io.println(mcm - ds);
+      io.println(max(abs(ys - ds), abs(ym - dm)));
    }
 
    public static int MCM(int a, int b) {

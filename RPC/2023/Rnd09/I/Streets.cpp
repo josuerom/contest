@@ -2,7 +2,7 @@
  *  █▀█  █▀▀▄ ─▀─ ▀▀█▀▀ █▀▀ ▄▀ ▀▄
  *  ─▄▀  █▀▀▄ ▀█▀ ──█── ▀▀█ █─ ─█
  *  █▄▄  ▀▀▀─ ▀▀▀ ──▀── ▀▀▀ ▀▄ ▄▀
- *  created: 12/08/23 15:35:22
+ *  created: 20/08/23 19:33:54
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -21,25 +21,16 @@ double getCurrentTime() {
 void solutionI() {
    int n, q;
    cin >> n >> q;
-   vector<pair<int, string>> s;
+   unordered_map<string, int> s;
    for (int i = 1; i <= n; i++) {
       string a;
       cin >> a;
-      s.push_back(make_pair(i, a));
+      s[a] = i;
    }
-   vector<pair<string, string>> c;
    for (int i = 0; i < q; i++) {
       string a, b;
       cin >> a >> b;
-      c.push_back(make_pair(a, b));
-   }
-   sort(s.begin(), s.end());
-   for (int i = 0; i < q; i++) {
-      auto it1 = find_if(s.begin(), s.end(), [f = c[i].first](const pair<int, string>& e) { return e.second == f; });
-      auto it2 = find_if(s.begin(), s.end(), [s = c[i].second](const pair<int, string>& e) { return e.second == s; });
-      int l = (it1 - s.begin());
-      int j = (it2 - s.begin());
-      cout << abs(l - j) - 1 << '\n';
+      cout << abs(s[a] - s[b]) - 1 << '\n';
    }
 }
 
