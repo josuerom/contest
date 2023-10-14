@@ -1,5 +1,5 @@
 # AutomatizaciónCodeforces.py: Creación de directorios y archivos fuentes para Rounds en línea
-# autor: josuerom fecha: 27/06/23 06:17:05
+# autor: josuerom  -  fecha: 27/06/23 06:17:05
 import os
 import shutil
 import subprocess
@@ -51,7 +51,7 @@ def obtenerIndexNombreProblemas(contestId):
 
 
 def crear_dirs(contestId):
-    ruta_principal = r"d:\workspace\contests\codeforces"
+    ruta_principal = r"d:\workspace\contests\cf"
     ruta_contest = os.path.join(ruta_principal, contestId)
 
     if os.path.exists(ruta_contest):
@@ -66,21 +66,22 @@ def crear_dirs(contestId):
         ruta_archivo_destino = os.path.join(ruta_contest, "debug.h")
         shutil.copyfile(r"d:\workspace\templates\debug.h",
                         ruta_archivo_destino)
+        open(f"{ruta_contest}\\input", 'w')
 
         for i in range(0, n):
-            open(f"{ruta_contest}\\{nombreP[i]}.java", 'x')
-            print(f"{nombreP[i]}.java")
-            # open(f"{ruta_contest}\\{nombreP[i]}.cpp", 'x')
-            # print(f"{nombreP[i]}.cpp"})
+            invalid_chars = r'_<>:"/\|?*'
+            sanitized_title = ''.join(
+                c if c not in invalid_chars else '_' for c in nombreP[i])
+            with open(f"{ruta_contest}\\{sanitized_title}.cpp", 'w'):
+                pass
+            print(f"{sanitized_title}.cpp")
 
-        print("debug.h\n-----------------------------")
-        t = float(f"{(n / 2 * 0.40):.2f}")
-        time.sleep(t)
+        print("input\ndebug.h\n-----------------------------")
 
-        print(f"Estoy inicializando tu VSCode", end='')
+        print(f"Iniciando tu VSCode", end='')
         stop = 4
         for i in range(0, stop):
-            time.sleep(0.70)
+            time.sleep(0.20)
             if i != stop - 1:
                 print(f".", end='', flush=True)
             else:
@@ -89,6 +90,7 @@ def crear_dirs(contestId):
         # comando = f"code {ruta_contest}"
         comando = f"code-insiders {ruta_contest}"
         subprocess.run(comando, shell=True)
+        print()
 
 
 if __name__ == '__main__':
