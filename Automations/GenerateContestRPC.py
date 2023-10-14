@@ -76,6 +76,6 @@ def crear_dirs(round, n):
 
 
 if __name__ == '__main__':
-    s = int(input("Round number -> "))
+    s = input("Round number -> ")
     n = int(input("How many problems -> "))
     crear_dirs(s, n)
