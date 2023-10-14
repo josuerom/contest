@@ -1,1 +1,0 @@
-# Comparto las soluciones y no soluciones de los Rounds por años en los que mi equipo participó.
