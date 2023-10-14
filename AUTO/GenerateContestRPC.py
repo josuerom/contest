@@ -1,5 +1,6 @@
 # AutomatizaciónRPC.py: Creación de directorios y archivos fuentes para Rounds de la RPC
 # autor: josuerom  -  fecha: 27/06/23 15:34:40
+# comando ejecutar windows W+r: python %HOMEPATH%\GenerateContestRPC.py
 import os
 import glob
 import shutil
