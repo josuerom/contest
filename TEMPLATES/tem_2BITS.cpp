@@ -17,7 +17,6 @@
 using namespace std;
 
 const int N = 1e6 + 7;
-int a[N], n;
 
 void solve() {
 }

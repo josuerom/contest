@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.*;
 import static java.lang.Math.*;
 
-public class {
+public class T{
    public static void main(String[] args) {
       try (FastReader io = new FastReader()) {
          int tt = 1;
