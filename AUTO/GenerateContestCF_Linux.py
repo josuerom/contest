@@ -51,7 +51,7 @@ def obtenerIndexNombreProblemas(contestId):
 
 
 def crear_dirs(contestId):
-    ruta_principal = r"/home/josuerom/workspace/contests/CF"
+    ruta_principal = r"/home/josuerom/workspace/Contests/CF"
     ruta_contest = os.path.join(ruta_principal, contestId)
 
     if os.path.exists(ruta_contest):
@@ -66,7 +66,7 @@ def crear_dirs(contestId):
         ruta_archivo_destino = os.path.join(ruta_contest, "debug.h")
         shutil.copyfile(r"/home/josuerom/workspace/templates/debug.h",
                         ruta_archivo_destino)
-        open(f"{ruta_contest}\\input", 'w')
+        open(f"{ruta_contest}\\in1", 'w')
 
         for i in range(0, n):
             invalid_chars = r'_<>:"/\|?*'
@@ -77,16 +77,10 @@ def crear_dirs(contestId):
                pass
             print(f"{sanitized_title}.cpp")
 
-        print("input\ndebug.h\n-----------------------------")
+        print("in1\ndebug.h\n--------------------------")
 
         print(f"Iniciando tu VSCode", end='')
-        stop = 4
-        for i in range(0, stop):
-            time.sleep(0.20)
-            if i != stop - 1:
-                print(f".", end='', flush=True)
-            else:
-                print("😁", end='', flush=True)
+        time.sleep(1.5)
 
         comando = f"code {ruta_contest}"
         subprocess.run(comando, shell=True)

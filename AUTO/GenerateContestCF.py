@@ -64,9 +64,8 @@ def crear_dirs(contestId):
         print("Se crearon estos archivos:\n-----------------------------")
 
         ruta_archivo_destino = os.path.join(ruta_contest, "debug.h")
-        shutil.copyfile(r"d:\workspace\templates\debug.h",
-                        ruta_archivo_destino)
-        open(f"{ruta_contest}\\input", 'w')
+        shutil.copyfile(r"d:\workspace\contests\templates\debug.h", ruta_archivo_destino)
+        open(f"{ruta_contest}\\in1", 'w')
 
         for i in range(0, n):
             invalid_chars = r'_<>:"/\|?*'
@@ -76,16 +75,10 @@ def crear_dirs(contestId):
                 pass
             print(f"{sanitized_title}.cpp")
 
-        print("input\ndebug.h\n-----------------------------")
+        print("in1\ndebug.h\n-----------------------------")
 
-        print(f"Iniciando tu VSCode", end='')
-        stop = 4
-        for i in range(0, stop):
-            time.sleep(0.20)
-            if i != stop - 1:
-                print(f".", end='', flush=True)
-            else:
-                print("😁", end='', flush=True)
+        print(f"Iniciando tu VSCode 😁😁", end='')
+        time.sleep(1.5) # wait of 1.5 seconds
 
         # comando = f"code {ruta_contest}"
         comando = f"code-insiders {ruta_contest}"
