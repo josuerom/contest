@@ -4,18 +4,17 @@
  *   █▄▄  ▀▀▀─ ▀▀▀ ──▀── ▀▀▀ ▀▄ ▄▀
 **/
 #include <bits/stdc++.h>
+
 using namespace std;
 
-#ifdef DEBUG
-#include "../debug.h"
-#else
-#define debug(...) 42
-#endif
+#define ll  long long
 
-const int N = 1e6 + 7;
-int a[N], n;
+ll n, d, ans;
 
 void solve() {
+   cin >> n >> d;
+   ans = static_cast<ll>(ceil(log2(n + 1)));
+   cout << min(ans, d + 1) << '\n';
 }
 
 int main() {
