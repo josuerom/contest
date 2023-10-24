@@ -6,10 +6,14 @@ import java.io.*;
 import java.util.*;
 import static java.lang.Math.*;
 
-public class  {
+public class {
    public static void main(String[] args) {
       try (FastReader io = new FastReader()) {
-         
+         int tt = 1;
+         tt = io.nextInt();
+         while (tt-- > 0) {
+            solve(io);
+         }
       }
       System.exit(0);
    }

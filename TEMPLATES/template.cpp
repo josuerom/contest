@@ -3,7 +3,6 @@
    █▄█ █▄█ ▄█ █▄█ ██▄ █▀▄ █▄█ █░▀░█
 **/
 #include <bits/stdc++.h>
-using namespace std;
 
 #ifdef DEBUG
 #include "debug.h"
@@ -12,8 +11,10 @@ using namespace std;
 #endif
 
 #define ll  long long
-#define pb  push_back
 #define br  '\n'
+
+using namespace std;
+
 
 void solve() {
 }
@@ -21,11 +22,11 @@ void solve() {
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(0);
-   int tt = 1;
+   int tt = 1, nc = 0;
    cin >> tt;
-   for (int nc = 1; nc <= tt; nc++) {
+   while (tt--) {
 #ifdef LOCAL
-      cout << "-- Case #" << nc << " --\n";
+      cout << "Case #" << ++nc << ": ";
       solve();
 #else
       solve();
