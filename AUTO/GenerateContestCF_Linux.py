@@ -1,5 +1,5 @@
-# AutomatizaciónCodeforces.py: Creación de directorios y archivos fuentes para Rounds en línea
-# autor: josuerom  -  fecha: 27/06/23 06:17:05
+# Creación de directorios y archivos fuentes para Rounds de Codeforces
+# Autor: josuerom  -  Fecha: 27/06/23 06:17:05
 import os
 import shutil
 import subprocess
@@ -9,7 +9,7 @@ import json
 import urllib.request
 
 
-def obtenerIndexNombreProblemas(contestId):
+def obtenerNombreProblemas(contestId):
     url = f"https://codeforces.com/api/contest.standings?contestId={contestId}&from=1&count=1&showUnofficial=true"
     problem_set = []
 
@@ -51,14 +51,14 @@ def obtenerIndexNombreProblemas(contestId):
 
 
 def crear_dirs(contestId):
-    ruta_principal = r"/home/josuerom/workspace/Contests/CF"
+    ruta_principal = r"/home/josuerom/workspace/contests/cf"
     ruta_contest = os.path.join(ruta_principal, contestId)
 
     if os.path.exists(ruta_contest):
         print(f"Ese contests ya existe 😞.")
     else:
         n = int(input("How many problems -> "))
-        nombreP = obtenerIndexNombreProblemas(contestId)
+        nombreP = obtenerNombreProblemas(contestId)
         os.makedirs(ruta_contest)
 
         print("Se crearon estos archivos:\n-----------------------------")
@@ -74,13 +74,11 @@ def crear_dirs(contestId):
                 c if c not in invalid_chars else '_' for c in nombreP[i])
             file_path = os.path.join(ruta_contest, f"{sanitized_title}.cpp")
             with open(file_path, 'w'):
-               pass
+                pass
             print(f"{sanitized_title}.cpp")
 
         print("in1\ndebug.h\n--------------------------")
-
-        print(f"Iniciando tu VSCode", end='')
-        time.sleep(1.5)
+        print(f"Iniciando tu VSCode...\n", end='')
 
         comando = f"code {ruta_contest}"
         subprocess.run(comando, shell=True)

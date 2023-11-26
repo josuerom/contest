@@ -6,7 +6,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "debug.h"
+#include "../debug.h"
 #else
 #define debug(...) 42
 #endif

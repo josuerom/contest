@@ -6,6 +6,7 @@ import shutil
 import time
 import subprocess
 
+
 def obtenerPDF(directorio_pdf, round):
     nombre_pdf = glob.glob(os.path.join(
         directorio_pdf, f"*RPC{round}*.pdf"))
@@ -47,7 +48,8 @@ def crear_dirs(round):
             return
 
     ruta_archivo_debug = os.path.join(ruta_dir, "debug.h")
-    shutil.copyfile(r"/home/josuerom/workspace/templates/debug.h", ruta_archivo_debug)
+    shutil.copyfile(
+        r"/home/josuerom/workspace/templates/debug.h", ruta_archivo_debug)
     template_2bits = r"/home/josuerom/workspace/templates/template_2bits.cpp"
 
     lista_id = ["A", "B", "C", "D"]
@@ -64,6 +66,7 @@ def crear_dirs(round):
     print("\nSe iniciará VSCode 😁😁", end='')
 
     comando = f"code {ruta_dir}"
+    # comando = f"code-insiders {ruta_dir}"
     subprocess.run(comando, shell=True)
 
 
