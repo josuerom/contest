@@ -4,6 +4,7 @@
  *   █▄▄  ▀▀▀─ ▀▀▀ ──▀── ▀▀▀ ▀▄ ▄▀
 **/
 #include <bits/stdc++.h>
+using namespace std;
 
 #ifdef DEBUG
 #include "../debug.h"
@@ -11,28 +12,35 @@
 #define debug(...) 42
 #endif
 
-#define ll  long long
-#define br  '\n'
+#define ll long long
+#define br '\n'
 
-using namespace std;
+const int N = 1e1 + 50;
+int a[N], n;
 
-const int N = 1e6 + 7;
+class RPCProblemSolver {
+public:
+   void solve() {
+   }
 
-void solve() {
-}
+   void TC() {
+      int tt = 1, nc = 0;
+      cin >> tt;
+      while (tt--) {
+      #ifdef LOCAL
+         cout << "Case #" << ++nc << ":\n";
+         solve();
+      #else
+         solve();
+      #endif
+      }
+   }
+};
 
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(0);
-   int tt = 1, nc = 0;
-   cin >> tt;
-   while (tt--) {
-#ifdef LOCAL
-      cout << "Case #" << ++nc << ": ";
-      solve();
-#else
-      solve();
-#endif
-   }
+   RPCProblemSolver solver;
+   solver.TC();
    return 0;
 }

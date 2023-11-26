@@ -10,7 +10,7 @@ public class T{
    public static void main(String[] args) {
       try (FastReader io = new FastReader()) {
          int tt = 1;
-         tt = io.nextInt();
+         // tt = io.nextInt();
          while (tt-- > 0) {
             solve(io);
          }

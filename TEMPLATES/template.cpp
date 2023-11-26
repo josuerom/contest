@@ -3,6 +3,7 @@
    █▄█ █▄█ ▄█ █▄█ ██▄ █▀▄ █▄█ █░▀░█
 **/
 #include <bits/stdc++.h>
+using namespace std;
 
 #ifdef DEBUG
 #include "debug.h"
@@ -13,9 +14,8 @@
 #define ll  long long
 #define br  '\n'
 
-using namespace std;
-
-
+const int N = 1e1 + 20;
+int a[N], n;
 
 void solve() {
 }
@@ -27,7 +27,7 @@ int main() {
    cin >> tt;
    while (tt--) {
 #ifdef LOCAL
-      cout << "Case #" << ++nc << ": ";
+      cout << "Case #" << ++nc << ":\n";
       solve();
 #else
       solve();
