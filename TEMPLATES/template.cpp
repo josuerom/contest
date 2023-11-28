@@ -5,7 +5,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#ifdef DEBUG
+#ifdef LOCAL
 #include "../debug.h"
 #else
 #define debug(...) 42
