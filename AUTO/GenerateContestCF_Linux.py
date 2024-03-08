@@ -51,7 +51,7 @@ def obtenerNombreProblemas(contestId):
 
 
 def crear_dirs(contestId):
-    ruta_principal = r"/home/josuerom/workspace/contests/cf"
+    ruta_principal = r"/home/josuerom/workspace/contests/CF"
     ruta_contest = os.path.join(ruta_principal, contestId)
 
     if os.path.exists(ruta_contest):
@@ -78,7 +78,7 @@ def crear_dirs(contestId):
             print(f"{sanitized_title}.cpp")
 
         print("in1\ndebug.h\n--------------------------")
-        print(f"Iniciando tu VSCode...\n", end='')
+        print(f"Iniciando tu VSCode...", end='\n')
 
         comando = f"code {ruta_contest}"
         subprocess.run(comando, shell=True)

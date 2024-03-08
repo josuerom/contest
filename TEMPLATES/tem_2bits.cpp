@@ -11,18 +11,17 @@ using namespace std;
 
 class RPCProblemSolver {
 public:
-   static const int N = 1e1 + 20;
-   int a[N], n;
+   static const int N = 20 + 1e1;
 
    void Solution() {
    }
 
    void TestCase() {
-      int tt = 1, nc = 0;
+      int tt = 1, nc = 1;
       cin >> tt;
       while (tt--) {
       #ifdef LOCAL
-         cout << "Case #" << ++nc << ":\n";
+         cout << "Case #" << nc++ << ":\n";
          Solution();
       #else
          Solution();
@@ -34,8 +33,8 @@ public:
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(0);
-   RPCProblemSolver cp;
-   cp.TestCase();
-   // cp.Solution();
+   RPCProblemSolver sol;
+   sol.TestCase();
+   // sol.Solution();
    return 0;
 }

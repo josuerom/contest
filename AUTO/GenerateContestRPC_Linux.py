@@ -17,15 +17,16 @@ def obtenerPDF(directorio_pdf, round):
 
 
 def crear_dirs(round):
-    ruta_base_rpc = r"/home/josuerom/workspace/Contests/RPC/"
+    ruta_base_rpc = r"/home/josuerom/workspace/contest/RPC/"
 
-    ruta_base = os.path.join(ruta_base_rpc, "2023")
+    ruta_base = os.path.join(ruta_base_rpc, "2024")
     if not os.path.exists(ruta_base):
         os.makedirs(ruta_base)
 
     nombre_dir = f"Rnd{round}"
     ruta_dir = os.path.join(ruta_base, nombre_dir)
     dir_pdf = r"/home/josuerom/Descargas"
+    #dir_pdf = r"/home/josuerom/Downloads"
 
     if os.path.exists(ruta_dir):
         print(f"El directorio {ruta_dir} ya existe 😞.")
@@ -50,7 +51,7 @@ def crear_dirs(round):
     ruta_archivo_debug = os.path.join(ruta_dir, "debug.h")
     shutil.copyfile(
         r"/home/josuerom/workspace/templates/debug.h", ruta_archivo_debug)
-    template_2bits = r"/home/josuerom/workspace/templates/template_2bits.cpp"
+    template_2bits = r"/home/josuerom/workspace/templates/tem_2bits.cpp"
 
     lista_id = ["A", "B", "C", "D"]
 
@@ -63,7 +64,7 @@ def crear_dirs(round):
         with open(archivo_base, 'x'):
             pass
 
-    print("\nSe iniciará VSCode 😁😁", end='')
+    print("\nSe iniciará VSCode 😁😁", end='\n')
 
     comando = f"code {ruta_dir}"
     # comando = f"code-insiders {ruta_dir}"
