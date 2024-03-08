@@ -1,14 +1,15 @@
 /**
- *  author:  $%U%$
- *  created: $%D%$/$%M%$/$%Y$
+ *  author:  josuerom
+ *  created: 08/03/2024 17:15:38
 **/
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll  long long
-#define br  '\n'
+#define ll long long
+#define br '\n'
 
 const int N = 10 + 1e1;
+
 
 void solve() {
 }

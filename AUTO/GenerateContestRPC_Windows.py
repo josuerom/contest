@@ -43,7 +43,7 @@ def crear_dirs(round):
         shutil.move(get_pdf, ruta_dir)
         print(f"Se han creado los archivos.")
     else:
-        print("\nNo se encontró el archivo PDF en el directorio ~\Descargas o ~\Downloads.")
+        print("\nNo se encontró el archivo PDF en ~\Descargas o ~\Downloads.")
         option = int(input("Presione 1 para continuar o 2 para salir -> "))
         if option == 2:
             return
@@ -72,5 +72,5 @@ def crear_dirs(round):
 
 
 if __name__ == '__main__':
-    s = input("Round ID -> ")
+    s = input("Número del round -> ")
     crear_dirs(s)

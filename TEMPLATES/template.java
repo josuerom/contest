@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.*;
 import static java.lang.Math.*;
 
-public class FileName{
+public class {
    public static void main(String[] args) {
       try (FastReader io = new FastReader()) {
          int tt = 1;
@@ -16,7 +16,7 @@ public class FileName{
       System.exit(0);
    }
 
-   static final int N = 20 + 1_000_000;
+   static final int N = 10 + 1_000_000;
    static int[] a = new int[N];
    static int n;
 

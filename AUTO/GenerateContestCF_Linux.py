@@ -85,5 +85,5 @@ def crear_dirs(contestId):
 
 
 if __name__ == '__main__':
-    s = input("Contest ID -> ")
+    s = input("ID del contest -> ")
     crear_dirs(s)

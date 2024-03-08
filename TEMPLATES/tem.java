@@ -1,10 +1,10 @@
 /**
- *  author:  josuerom
- *  created: $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+ *  author:  $%U%$
+ *  created: $%D%$/$%M%$/$%Y%$
 **/
 import java.util.*;
 
-public class $%H%$ {
+public class a {
    public static void main(String[] args) {
       Scanner sc = new Scanner(System.in);
       int tt = 1;

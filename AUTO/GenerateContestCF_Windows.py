@@ -79,10 +79,10 @@ def crear_dirs(contestId):
         print("in1\ndebug.h\n-----------------------------")
         print(f"Iniciando tu VSCode 😁😁", end='\n')
 
-        # comando = f"code {ruta_contest}"
-        comando = f"code-insiders {ruta_contest}"
+        comando = f"code {ruta_contest}"
+        # comando = f"code-insiders {ruta_contest}"
         subprocess.run(comando, shell=True)
 
 if __name__ == '__main__':
-    s = input("Contest ID -> ")
+    s = input("ID del contest -> ")
     crear_dirs(s)

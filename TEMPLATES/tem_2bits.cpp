@@ -6,8 +6,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
-#define br '\n'
+#define ll  long long
+#define br  '\n'
 
 class RPCProblemSolver {
 public:
@@ -16,7 +16,7 @@ public:
    void Solution() {
    }
 
-   void TestCase() {
+   void TC() {
       int tt = 1, nc = 1;
       cin >> tt;
       while (tt--) {
@@ -34,7 +34,7 @@ int main() {
    ios::sync_with_stdio(false);
    cin.tie(0);
    RPCProblemSolver sol;
-   sol.TestCase();
+   sol.TC();
    // sol.Solution();
    return 0;
 }
