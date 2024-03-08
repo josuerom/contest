@@ -51,20 +51,20 @@ def obtenerNombreProblemas(contestId):
 
 
 def crear_dirs(contestId):
-    ruta_principal = r"/home/josuerom/workspace/contests/CF"
+    ruta_principal = r"/home/josuerom/workspace/contest/CF"
     ruta_contest = os.path.join(ruta_principal, contestId)
 
     if os.path.exists(ruta_contest):
         print(f"Ese contests ya existe 😞.")
     else:
-        n = int(input("How many problems -> "))
+        n = int(input("Cuántos problemas -> "))
         nombreP = obtenerNombreProblemas(contestId)
         os.makedirs(ruta_contest)
 
         print("Se crearon estos archivos:\n-----------------------------")
 
         ruta_archivo_destino = os.path.join(ruta_contest, "debug.h")
-        shutil.copyfile(r"/home/josuerom/workspace/templates/debug.h",
+        shutil.copyfile(r"/home/josuerom/workspace/contest/TEMPLATES/debug.h",
                         ruta_archivo_destino)
         open(f"{ruta_contest}\\in1", 'w')
 
@@ -85,5 +85,5 @@ def crear_dirs(contestId):
 
 
 if __name__ == '__main__':
-    s = input("ID Contest -> ")
+    s = input("Contest ID -> ")
     crear_dirs(s)

@@ -50,10 +50,10 @@ def crear_dirs(round):
 
     ruta_archivo_debug = os.path.join(ruta_dir, "debug.h")
     shutil.copyfile(
-        r"/home/josuerom/workspace/templates/debug.h", ruta_archivo_debug)
-    template_2bits = r"/home/josuerom/workspace/templates/tem_2bits.cpp"
+        r"/home/josuerom/workspace/contest/TEMPLATES/debug.h", ruta_archivo_debug)
+    template_2bits = r"/home/josuerom/workspace/contest/TEMPLATES/tem_2bits.cpp"
 
-    lista_id = ["A", "B", "C", "D"]
+    lista_id = ["A", "B", "C", "D", "E"]
 
     for problemID in lista_id:
         ruta_rpc = os.path.join(ruta_dir, problemID)
@@ -72,5 +72,5 @@ def crear_dirs(round):
 
 
 if __name__ == '__main__':
-    s = input("Round number -> ")
+    s = input("Round ID -> ")
     crear_dirs(s)
