@@ -24,30 +24,22 @@ public:
          if (s[i] == '0') pzeros.push_front(i + 1);
          else if (s[i] == '2') ptwos.push_back({i + 1, pzeros.size()});
       }
-      // int in = 0;
-      // while (scanf("%c", &s[in++]) != EOF) {
-      //    if (s[in - 1] == '0') pzeros.push_back(in);
-      //    else if (s[in - 1] == '2') ptwos.push_back(in);
-      // }
       strcpy(d, s);
       sort(d, d + n);
       if (strcmp(s, d) == 0) {
          cout << "0\n";
          return;
       }
-      int ans = 0, add = 0, stop = pzeros.size();
+      int stop = pzeros.size();
+      ll ans = 0;
       for (int i = 0, l = 1; i < stop; i++, l++) {
          int curr = pzeros. front();
-         ans += curr - l;
+         ans += (ll) curr - l;
          pzeros.pop_front();
       }
-      // if (ptwos.size() == 1 && ptwos[ptwos.size() - 1].first == n) {
-      //    cout << ans << br;
-      //    return;
-      // }
       for (int i = ptwos.size() - 1, r = n; i >= 0; i--, r--) {
          int curr = ptwos[i].first + ptwos[i].second;
-         ans += r - curr;
+         ans += (ll) r - curr;
       }
       cout << ans << br;
    }
