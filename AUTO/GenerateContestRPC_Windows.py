@@ -1,6 +1,5 @@
 # Creación de directorios y archivos fuentes para Rounds de la RPC
 # Autor: josuerom - Fecha: 27/06/23 15:34:40
-# Comando para ejecutar [Win+r]: python %HOMEPATH%\GenerateContestRPC_Windows.py
 import os
 import glob
 import shutil
@@ -18,7 +17,7 @@ def obtenerPDF(directorio_pdf, round):
 
 
 def crear_dirs(round):
-    ruta_base_rpc = r"d:\workspace\contest\RPC"
+    ruta_base_rpc = r"d:\workspace\contest\rpc"
 
     ruta_base = os.path.join(ruta_base_rpc, "2024")
     if not os.path.exists(ruta_base):
@@ -26,11 +25,11 @@ def crear_dirs(round):
 
     nombre_dir = f"Rnd{round}"
     ruta_dir = os.path.join(ruta_base, nombre_dir)
-    dir_pdf = r"c:\users\jr3\downloads"
+    dir_pdf = r"c:\users\josuerom\downloads"
     # dir_pdf = r"c:\users\jr3\descargas"
 
     if os.path.exists(ruta_dir):
-        print(f"El directorio {ruta_dir} ya existe 😞.")
+        print(f"El round ya existe 😞.")
         return
     else:
         os.makedirs(ruta_dir)
@@ -48,12 +47,8 @@ def crear_dirs(round):
         if option == 2:
             return
 
-    ruta_archivo_debug = os.path.join(ruta_dir, "debug.h")
-    shutil.copyfile(r"d:\workspace\contest\TEMPLATES\debug.h",
-                    ruta_archivo_debug)
-    template_2bits = r"d:\workspace\contest\TEMPLATES\tem_2bits.cpp"
-
-    lista_id = ["A", "B", "C", "D", "E"]
+    template_2bits = r"d:\workspace\contest\templates\tem_2bits.cpp"
+    lista_id = ["A", "B", "C", "D"]
 
     for problemID in lista_id:
         ruta_rpc = os.path.join(ruta_dir, problemID)
@@ -64,10 +59,10 @@ def crear_dirs(round):
         with open(archivo_base, 'x'):
             pass
 
-    print("\nSe iniciará VSCode 😁😁", end='\n')
+    print("\nSe iniciará VSCode 😁😁...", end='\n')
 
-    # comando = f"code {ruta_dir}"
     comando = f"code-insiders {ruta_dir}"
+    # comando = f"code {ruta_dir}"
     subprocess.run(comando, shell=True)
 
 
