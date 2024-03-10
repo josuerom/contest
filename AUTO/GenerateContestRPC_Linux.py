@@ -29,7 +29,7 @@ def crear_dirs(round):
     #dir_pdf = r"/home/josuerom/Downloads"
 
     if os.path.exists(ruta_dir):
-        print(f"El directorio {ruta_dir} ya existe 😞.")
+        print(f"El round ya existe 😞.")
         return
     else:
         os.makedirs(ruta_dir)
@@ -48,12 +48,9 @@ def crear_dirs(round):
         if option == 2:
             return
 
-    ruta_archivo_debug = os.path.join(ruta_dir, "debug.h")
-    shutil.copyfile(
-        r"/home/josuerom/workspace/contest/TEMPLATES/debug.h", ruta_archivo_debug)
     template_2bits = r"/home/josuerom/workspace/contest/TEMPLATES/tem_2bits.cpp"
 
-    lista_id = ["A", "B", "C", "D", "E"]
+    lista_id = ["A", "B", "C", "D"]
 
     for problemID in lista_id:
         ruta_rpc = os.path.join(ruta_dir, problemID)
