@@ -11,7 +11,8 @@ using namespace std;
 
 class RPCProblemSolver {
 public:
-   static const int N = 20 + 1e1;
+   static const int N = 50 + 1e1;
+   static int a[N], n;
 
    void Solution() {
    }

@@ -6,6 +6,9 @@
 using namespace std;
 
 #define ll  long long
+#define pb  push_back
+#define ss  second
+#define ff  first
 #define br  '\n'
 
 const int N = 10 + 1e1;

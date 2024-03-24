@@ -16,7 +16,7 @@ public class {
       System.exit(0);
    }
 
-   static final int N = 10 + 1_000_000;
+   static final int N = 10 + 1_000_;
    static int[] a = new int[N];
    static int n;
 
