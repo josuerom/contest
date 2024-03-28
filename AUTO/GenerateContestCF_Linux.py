@@ -55,17 +55,13 @@ def crear_dirs(contestId):
     ruta_contest = os.path.join(ruta_principal, contestId)
 
     if os.path.exists(ruta_contest):
-        print(f"Ese contests ya existe 😞.")
+        print(f"El contest ya existe 😞.")
     else:
-        n = int(input("Cuántos problemas -> "))
+        n = int(input("Cuántos problemas le genero -> "))
         nombreP = obtenerNombreProblemas(contestId)
         os.makedirs(ruta_contest)
 
         print("Se crearon estos archivos:\n-----------------------------")
-
-        ruta_archivo_destino = os.path.join(ruta_contest, "debug.h")
-        shutil.copyfile(r"/home/josuerom/workspace/contest/TEMPLATES/debug.h",
-                        ruta_archivo_destino)
         open(f"{ruta_contest}\\in1", 'w')
 
         for i in range(0, n):
@@ -77,8 +73,8 @@ def crear_dirs(contestId):
                 pass
             print(f"{sanitized_title}.cpp")
 
-        print("in1\ndebug.h\n--------------------------")
-        print(f"Iniciando tu VSCode...", end='\n')
+        print("in1\n--------------------------")
+        print(f"Iniciando su VSCode...", end='\n')
 
         comando = f"code {ruta_contest}"
         subprocess.run(comando, shell=True)
