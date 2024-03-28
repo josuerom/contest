@@ -11,7 +11,7 @@ using namespace std;
 
 class RPCProblemSolver {
 public:
-   static const int N = 50 + 1e1;
+   static const int N = 30 + 1e1;
    static int a[N], n;
 
    void Solution() {
@@ -34,8 +34,8 @@ public:
 int main() {
    ios::sync_with_stdio(false);
    cin.tie(0);
-   RPCProblemSolver sol;
-   sol.TC();
-   // sol.Solution();
+   RPCProblemSolver cp;
+   cp.TC();
+   // cp.Solution();
    return 0;
 }

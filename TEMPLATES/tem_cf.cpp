@@ -1,6 +1,6 @@
 /**
- *  author:  $%U%$
- *  created: $%D%$/$%M%$/$%Y$
+ *   author:  $%U%$
+ *   created: $%D%$/$%M%$/$%Y%$
 **/
 #include <bits/stdc++.h>
 using namespace std;

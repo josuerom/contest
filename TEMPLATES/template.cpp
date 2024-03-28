@@ -3,18 +3,11 @@
    █▄█ █▄█ ▄█ █▄█ ██▄ █▀▄ █▄█ █░▀░█
 **/
 #include <bits/stdc++.h>
+
 using namespace std;
 
-#ifdef LOCAL
-#include "../debug.h"
-#else
-#define debug(...) 42
-#endif
-
-#define ll  long long
-#define br  '\n'
-
-const int N = 20 + 1e1;
+const int N = 10 + 1e1;
+int a[N], n;
 
 void solve() {
 }
