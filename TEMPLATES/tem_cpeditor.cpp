@@ -1,9 +1,8 @@
 #include <bits/stdc++.h>
-using namespace std;
-
 #define ll  long long
 #define br  '\n'
 
+using namespace std;
 const int N = 10 + 1e1;
 
 void solve() {

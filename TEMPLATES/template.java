@@ -16,10 +16,6 @@ public class {
       System.exit(0);
    }
 
-   static final int N = 10 + 1_000_;
-   static int[] a = new int[N];
-   static int n;
-
    public static void solve(FastReader io) {
    }
 

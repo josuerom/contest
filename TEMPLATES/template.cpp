@@ -3,7 +3,6 @@
    █▄█ █▄█ ▄█ █▄█ ██▄ █▀▄ █▄█ █░▀░█
 **/
 #include <bits/stdc++.h>
-
 using namespace std;
 
 const int N = 10 + 1e1;
