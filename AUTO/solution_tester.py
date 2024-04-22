@@ -2,7 +2,9 @@
 import sys
 import os
 import subprocess
+import requests
 from termcolor import colored
+from bs4 import BeautifulSoup
 
 
 def main(programa):
@@ -14,7 +16,35 @@ def main(programa):
    elif programa.endswith(".java"):
       ejecutar_java(programa)
    else:
-      print(f"No hay soporte de compilación para archivos .{extension[1]}")
+      print(f"No hay soporte para programas .{extension[1]}")
+      return
+
+
+def eliminar_archivos_de_entrada():
+   ubicacion_programa = os.path.dirname(os.path.abspath(sys.argv[0]))
+   archivos_txt = os.path.join(ubicacion_programa, "samples", "*.txt")
+   subprocess.run(["rm", "-rf", archivos_txt])
+
+
+def obtener_input_output(id_contest, id_problema):
+   eliminar_archivos_de_entrada()
+   url = f"https://codeforces.com/contest/{id_contest}/problem/{id_problema}"
+   response = requests.get(url)
+   if response.status_code == 200:
+      soup = BeautifulSoup(response.text, 'html.parser')
+      input_divs = soup.find_all('div', class_='input')
+      output_divs = soup.find_all('div', class_='output')
+
+      for i, (input_div, output_div) in enumerate(zip(input_divs, output_divs), start=1):
+         input_text = input_div.find('pre').get_text()
+         output_text = output_div.find('pre').get_text()
+         with open(f"samples/in{i}.txt", "w") as input_file:
+               input_file.write(input_text.strip())
+         with open(f"samples/ans{i}.txt", "w") as output_file:
+               output_file.write(output_text.strip())
+         print(colored(f"Test case {i} copied ✅", "yellow"))
+   else:
+      print(f"Acá hay un error: {url}")
 
 
 def ejecutar_python(programa):
@@ -33,7 +63,7 @@ def ejecutar_python(programa):
       if salida_generada.strip() == salida_esperada.strip():
          print(colored(f"Test case {i} passed ✅", "green"))
       else:
-         print(colored("Wrong answer case {i} ❌", "red"))
+         print(colored(f"Wrong answer case {i} ❌", "red"))
          print(f"Output:\n{salida_generada}", end="\n")
          print(f"Answer:\n{salida_esperada}")
 
@@ -55,7 +85,7 @@ def compilar_y_ejecutar_cpp(programa):
          if salida_generada.strip() == salida_esperada.strip():
                print(colored(f"Test case {i} passed ✅", "green"))
          else:
-               print(colored("Wrong answer case {i} ❌", "red"))
+               print(colored(f"Wrong answer case {i} ❌", "red"))
                print(f"Output:\n{salida_generada}", end="\n")
                print(f"Answer:\n{salida_esperada}")
 
@@ -86,13 +116,22 @@ def ejecutar_java(programa):
       if salida_generada.strip() == salida_esperada.strip():
          print(colored(f"Test case {i} passed ✅", "green"))
       else:
-         print(colored("Wrong answer case {i} ❌", "red"))
+         print(colored(f"Wrong answer case {i} ❌", "red"))
          print(f"Output:\n{salida_generada}", end="\n")
          print(f"Answer:\n{salida_esperada}")
 
 
 if __name__ == "__main__":
-   """Para vereficar, ejecute:
-      python3 solution_tester.py HolaMundo.cpp
+   """Para verificar todos los caso de prueba:
+      python3 solution_tester.py -test <programa>
+   
+      Para obtener los casos de prueba junto con sus salidas
+      python3 solution_tester.py -parse <id_contes>/<id_problema>
    """
-   main(sys.argv[1])
+   if len(sys.argv) == 3 and sys.argv[1] == "-test":
+      main(sys.argv[1])
+   elif len(sys.argv) == 3 and sys.argv[1] == "-parse":
+      id_contest, id_problema = sys.argv[2].split("/")
+      obtener_input_output(id_contest, id_problema)
+   elif len(sys.argv) > 3 or sys.argv[1] != "-parse" and sys.argv[1] != "-test":
+      print("Mijito/a la instrucción no es válida!")
