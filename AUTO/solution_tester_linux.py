@@ -8,22 +8,26 @@ from bs4 import BeautifulSoup
 
 
 def main(programa):
-   extension = programa.split(".")
-   if programa.endswith(".py"):
+   if programa.strip().endswith(".py"):
       ejecutar_python(programa)
-   elif programa.endswith(".cpp"):
+   elif programa.strip().endswith(".cpp"):
       compilar_y_ejecutar_cpp(programa)
-   elif programa.endswith(".java"):
+   elif programa.strip().endswith(".java"):
       ejecutar_java(programa)
    else:
-      print(f"No hay soporte para programas .{extension[1]}")
+      extension = programa.split(".")[-1]
+      print(f"No hay soporte para programas .{extension}. Solo para (.cpp .java .py)")
       return
 
 
 def eliminar_archivos_de_entrada():
    ubicacion_programa = os.path.dirname(os.path.abspath(sys.argv[0]))
    archivos_txt = os.path.join(ubicacion_programa, "samples", "*.txt")
-   subprocess.run(["rm", "-rf", archivos_txt])
+   directorio_entradas_salidas = os.path.join(ubicacion_programa, "samples")
+   if not os.path.exists(directorio_entradas_salidas):
+      os.makedirs(directorio_entradas_salidas)
+   else:
+      subprocess.run(["rm", "-rf", archivos_txt])
 
 
 def obtener_input_output(id_contest, id_problema):
@@ -40,9 +44,10 @@ def obtener_input_output(id_contest, id_problema):
          output_text = output_div.find('pre').get_text()
          with open(f"samples/in{i}.txt", "w") as input_file:
                input_file.write(input_text.strip())
+         print(colored(f"Test case {i} copied ✅", "yellow"))
          with open(f"samples/ans{i}.txt", "w") as output_file:
                output_file.write(output_text.strip())
-         print(colored(f"Test case {i} copied ✅", "yellow"))
+         print(colored(f"Answer {i} copied ✅", "yellow"))
    else:
       print(f"Acá hay un error: {url}")
 
@@ -96,7 +101,7 @@ def compilar_y_ejecutar_cpp(programa):
    if proceso_compilacion.returncode == 0:
       ejecutar(nombre_ejecutable)
    else:
-      print(colored("OJO: Error de compilación.", "red"))
+      print(colored("Error de compilación.", "red"))
       print(errores_compilacion)
 
 
@@ -129,9 +134,9 @@ if __name__ == "__main__":
       python3 solution_tester.py -parse <id_contes>/<id_problema>
    """
    if len(sys.argv) == 3 and sys.argv[1] == "-test":
-      main(sys.argv[1])
+      main(sys.argv[2])
    elif len(sys.argv) == 3 and sys.argv[1] == "-parse":
       id_contest, id_problema = sys.argv[2].split("/")
       obtener_input_output(id_contest, id_problema)
-   elif len(sys.argv) > 3 or sys.argv[1] != "-parse" and sys.argv[1] != "-test":
+   elif len(sys.argv) > 3 or (sys.argv[1] != "-parse" and sys.argv[1] != "-test"):
       print("Mijito/a la instrucción no es válida!")
