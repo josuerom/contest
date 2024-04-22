@@ -57,7 +57,7 @@ def crear_dirs(contestId):
     if os.path.exists(ruta_contest):
         print(f"El contest ya existe 😞.")
     else:
-        n = int(input("Cuántos problemas le genero? "))
+        n = int(input("Cuántos problemas genero: "))
         nombreP = obtenerNombreProblemas(contestId)
         os.makedirs(ruta_contest)
 
@@ -76,10 +76,9 @@ def crear_dirs(contestId):
         print("in1\n-----------------------------")
         print(f"Iniciando su VSCode 😁😁...", end='\n')
 
-        comando = f"code-insiders {ruta_contest}"
-        # comando = f"code {ruta_contest}"
-        subprocess.run(comando, shell=True)
+        subprocess.run(f"code {ruta_dir}", shell=True)
+        subprocess.run("taskkill /f /im cmd.exe", shell=True)
 
 if __name__ == '__main__':
-    s = input("ID del contest -> ")
+    s = input("ContestID -> ")
     crear_dirs(s)
