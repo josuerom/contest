@@ -1,9 +1,8 @@
-# AUTO
+# AUTOMATIZACIONES
 
 Para que las automatizaciones funcionen correctamente, necesariamente se deben instalar las dependencias que están en `requirements.txt`
 
 ## Windows
-Ejecute:
 ```cmd
 cd contest
 python -m venv venv
@@ -13,7 +12,6 @@ pip install -r requirements.txt
 ```
 
 ## Linux
-Ejecute:
 ```bash
 sudo apt install python3-virtualenv
 cd contest
