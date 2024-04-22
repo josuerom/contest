@@ -32,13 +32,13 @@ def ejecutar_python(programa):
       if salida_generada.strip() == salida_esperada.strip():
          print(colored(f"Test case {i} passed ✅", "green"))
       else:
-         print(colored("Wrong answer", "red"))
+         print(colored("Wrong answer case {i} ❌", "red"))
          print(f"Output:\n{salida_generada}", end="\n")
          print(f"Answer:\n{salida_esperada}")
 
 
 def compilar_y_ejecutar_cpp(programa):
-   def ejecutar_programa_cpp(programa):
+   def ejecutar(programa):
       for i in range(1, 100):
          entrada_estandar = f"samples/in{i}.txt"
          respuesta_correcta = f"samples/ans{i}.txt"
@@ -53,7 +53,7 @@ def compilar_y_ejecutar_cpp(programa):
          if salida_generada.strip() == salida_esperada.strip():
             print(colored(f"Test case {i} passed ✅", "green"))
          else:
-            print(colored("Wrong answer", "red"))
+            print(colored("Wrong answer case {i} ❌", "red"))
             print(f"Output:\n{salida_generada}", end="\n")
             print(f"Answer:\n{salida_esperada}")
 
@@ -61,7 +61,7 @@ def compilar_y_ejecutar_cpp(programa):
    proceso_compilacion = subprocess.Popen(["g++ -std=c++17 -O2 -DLOCAL", programa, "-o", nombre_ejecutable], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
    _, errores_compilacion = proceso_compilacion.communicate()
    if proceso_compilacion.returncode == 0:
-      ejecutar_programa_cpp(nombre_ejecutable)
+      ejecutar(nombre_ejecutable)
    else:
       print(colored("OJO: Error de compilación.", "red"))
       print(errores_compilacion)
@@ -82,7 +82,7 @@ def ejecutar_java(programa):
       if salida_generada.strip() == salida_esperada.strip():
          print(colored(f"Test case {i} passed ✅", "green"))
       else:
-         print(colored("Wrong answer", "red"))
+         print(colored("Wrong answer case {i} ❌", "red"))
          print(f"Output:\n{salida_generada}", end="\n")
          print(f"Answer:\n{salida_esperada}")
 
