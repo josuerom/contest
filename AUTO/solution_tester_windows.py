@@ -44,10 +44,10 @@ def obtener_input_output(id_contest, id_problema):
             output_text = output_div.find('pre').get_text()
             with open(f"samples\\in{i}.txt", "w") as input_file:
                 input_file.write(input_text.strip())
-            print(colored(f"Test case {i} copied ✅", "yellow"))
+            print(colored(f"Test case {i} copied ☑️", "yellow"))
             with open(f"samples\\ans{i}.txt", "w") as output_file:
                 output_file.write(output_text.strip())
-            print(colored(f"Answer {i} copied ✅", "yellow"))
+            print(colored(f"Answer {i} copied ☑️", "yellow"))
     else:
         print(f"Acá hay un error: {url}")
 
@@ -68,7 +68,7 @@ def ejecutar_python(programa):
         if salida_generada.strip() == salida_esperada.strip():
             print(colored(f"Test case {i} passed ✅", "green"))
         else:
-            print(colored(f"Wrong answer case {i} ❌", "red"))
+            print(colored(f"WA case {i}:", "red"))
             print(f"Output:\n{salida_generada}", end="\n")
             print(f"Answer:\n{salida_esperada}")
 
@@ -90,7 +90,7 @@ def compilar_y_ejecutar_cpp(programa):
             if salida_generada.strip() == salida_esperada.strip():
                 print(colored(f"Test case {i} passed ✅", "green"))
             else:
-                print(colored(f"Wrong answer case {i} ❌", "red"))
+                print(colored(f"WA case {i}:", "red"))
                 print(f"Output:\n{salida_generada}", end="\n")
                 print(f"Answer:\n{salida_esperada}")
 
@@ -121,7 +121,7 @@ def ejecutar_java(programa):
         if salida_generada.strip() == salida_esperada.strip():
             print(colored(f"Test case {i} passed ✅", "green"))
         else:
-            print(colored(f"Wrong answer case {i} ❌", "red"))
+            print(colored(f"WA case {i}:", "red"))
             print(f"Output:\n{salida_generada}", end="\n")
             print(f"Answer:\n{salida_esperada}")
 
