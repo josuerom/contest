@@ -5,7 +5,7 @@ Para que las automatizaciones funcionen correctamente, necesariamente se deben i
 ## En Windows
 Instalar los paquetes en el sistema y no en un entorno virtual:
 ```cmd
-cd contest/AUTO
+cd contest\AUTO
 pip install -r requirements.txt
 ```
 
