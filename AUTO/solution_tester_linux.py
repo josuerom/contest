@@ -16,17 +16,21 @@ def main(programa):
       ejecutar_java(programa)
    else:
       extension = programa.split(".")[-1]
-      print(f"No hay soporte para programas .{extension}. Solo para (.cpp .java .py)")
+      print(colored(f"No hay soporte para programas .{extension}", "magenta"))
       return
 
 
+def ruta_samples():
+   ruta_por_defecto = f"/home/josuerom/Workspace/codeforces/samples"
+   return ruta_por_defecto
+
+
 def eliminar_archivos_de_entrada():
-   ubicacion_programa = os.path.dirname(os.path.abspath(sys.argv[0]))
-   archivos_txt = os.path.join(ubicacion_programa, "samples", "*.txt")
-   directorio_entradas_salidas = os.path.join(ubicacion_programa, "samples")
+   directorio_entradas_salidas = os.path.join(ruta_samples())
    if not os.path.exists(directorio_entradas_salidas):
       os.makedirs(directorio_entradas_salidas)
    else:
+      archivos_txt = os.path.join(directorio_entradas_salidas, "*.txt")
       subprocess.run(["rm", "-rf", archivos_txt])
 
 
@@ -42,20 +46,20 @@ def obtener_input_output(id_contest, id_problema):
       for i, (input_div, output_div) in enumerate(zip(input_divs, output_divs), start=1):
          input_text = input_div.find('pre').get_text()
          output_text = output_div.find('pre').get_text()
-         with open(f"samples/in{i}.txt", "w") as input_file:
+         with open(f"{ruta_samples()}/in{i}.txt", "w") as input_file:
                input_file.write(input_text.strip())
          print(colored(f"Test case {i} copied ☑️", "yellow"))
-         with open(f"samples/ans{i}.txt", "w") as output_file:
+         with open(f"{ruta_samples()}/ans{i}.txt", "w") as output_file:
                output_file.write(output_text.strip())
          print(colored(f"Answer {i} copied ☑️", "yellow"))
    else:
-      print(f"Acá hay un error: {url}")
+      print("Acá hay un error fatal:", colored(f"{url}", "red"))
 
 
 def ejecutar_python(programa):
    for i in range(1, 10):
-      entrada_estandar = f"samples/in{i}.txt"
-      respuesta_correcta = f"samples/ans{i}.txt"
+      entrada_estandar = f"{ruta_samples()}/in{i}.txt"
+      respuesta_correcta = f"{ruta_samples()}/ans{i}.txt"
       if not os.path.exists(entrada_estandar):
          break
       with open(entrada_estandar, "r") as contenido_archivo_de_entrada:
@@ -76,8 +80,8 @@ def ejecutar_python(programa):
 def compilar_y_ejecutar_cpp(programa):
    def ejecutar(programa):
       for i in range(1, 10):
-         entrada_estandar = f"samples/in{i}.txt"
-         respuesta_correcta = f"samples/ans{i}.txt"
+         entrada_estandar = f"{ruta_samples()}/in{i}.txt"
+         respuesta_correcta = f"{ruta_samples()}/ans{i}.txt"
          if not os.path.exists(entrada_estandar):
                break
          with open(entrada_estandar, "r") as contenido_archivo_de_entrada:
@@ -107,8 +111,8 @@ def compilar_y_ejecutar_cpp(programa):
 
 def ejecutar_java(programa):
    for i in range(1, 10):
-      entrada_estandar = f"samples/in{i}.txt"
-      respuesta_correcta = f"samples/ans{i}.txt"
+      entrada_estandar = f"{ruta_samples()}/in{i}.txt"
+      respuesta_correcta = f"{ruta_samples()}/ans{i}.txt"
       if not os.path.exists(entrada_estandar):
          break
       with open(entrada_estandar, "r") as contenido_archivo_de_entrada:
@@ -127,16 +131,17 @@ def ejecutar_java(programa):
 
 
 if __name__ == "__main__":
-   """Para verificar todos los caso de prueba:
-      python3 solution_tester.py -test <programa>
+   """En Linux
+      Para verificar todos los caso de prueba:
+      python3 lin_tester.py -test <programa>
    
       Para obtener los casos de prueba del problema:
-      python3 solution_tester.py -parse <id_contes>/<id_problema>
+      python3 lin_tester.py -parse <id_contes>/<id_problema>
    """
-   if len(sys.argv) == 3 and sys.argv[1] == "-test":
+   if len(sys.argv) > 3 or (sys.argv[1] != "-parse" and sys.argv[1] != "-test"):
+      print(colored("Mijito/a instrucción invalida!", "red"))
+   elif len(sys.argv) == 3 and sys.argv[1] == "-test":
       main(sys.argv[2])
    elif len(sys.argv) == 3 and sys.argv[1] == "-parse":
       id_contest, id_problema = sys.argv[2].split("/")
       obtener_input_output(id_contest, id_problema)
-   elif len(sys.argv) > 3 or (sys.argv[1] != "-parse" and sys.argv[1] != "-test"):
-      print("Mijito/a la instrucción no es válida!")
