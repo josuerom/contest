@@ -57,7 +57,7 @@ def obtener_input_output(id_contest, id_problema):
 
 
 def ejecutar_python(programa):
-    for i in range(1, 10):
+    for i in range(1, 11):
         entrada_estandar = f"{ruta_samples()}\\in{i}.txt"
         respuesta_correcta = f"{ruta_samples()}\\ans{i}.txt"
         if not os.path.exists(entrada_estandar):
@@ -79,7 +79,7 @@ def ejecutar_python(programa):
 
 def compilar_y_ejecutar_cpp(programa):
     def ejecutar(programa):
-        for i in range(1, 10):
+        for i in range(1, 11):
             entrada_estandar = f"{ruta_samples()}\\in{i}.txt"
             respuesta_correcta = f"{ruta_samples()}\\ans{i}.txt"
             if not os.path.exists(entrada_estandar):
@@ -110,7 +110,7 @@ def compilar_y_ejecutar_cpp(programa):
 
 
 def ejecutar_java(programa):
-    for i in range(1, 10):
+    for i in range(1, 11):
         entrada_estandar = f"{ruta_samples()}\\in{i}.txt"
         respuesta_correcta = f"{ruta_samples()}\\ans{i}.txt"
         if not os.path.exists(entrada_estandar):
@@ -136,7 +136,7 @@ if __name__ == "__main__":
        python ..\auto\win_tester.py -t <programa>
     
        Para obtener los casos de prueba junto con las salidas
-       python ..\auto\win_tester.py -p <id_contes>/<id_problema>
+       python ..\auto\win_tester.py -p <id_contest>/<id_problema>
     """
     if len(sys.argv) > 3 or sys.argv[1] != "-p" and sys.argv[1] != "-t":
       print(colored("Mijito/a instrucción invalida!", "red"))
