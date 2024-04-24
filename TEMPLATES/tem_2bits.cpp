@@ -9,32 +9,25 @@ using namespace std;
 #define ll  long long
 #define br  '\n'
 
-class RPCProblemSolver {
+class RPCProblemA {
 public:
-   static const int N = 30 + 1e1;
+   static const int N = int(1e5) + 30;
    int a[N], n;
 
-   void Solution() {
+   void solveOne() {
    }
 
-   void TC() {
-      int tt = 1, nc = 1;
+   void tcReading() {
+      int tt;
       cin >> tt;
-      while (tt--) {
-      #ifdef LOCAL
-         cout << "Case #" << nc++ << ":\n";
-         Solution();
-      #else
-         Solution();
-      #endif
-      }
+      while (tt--) solveOne();
    }
 };
 
 int main() {
-   RPCProblemSolver cp;
-   // cp.TC();
-   cp.Solution();
+   RPCProblemA me;
+   // me.tcReading();
+   // me.solveOne();
    system("pause");
    return 0;
 }

@@ -3,7 +3,7 @@
 #define br  '\n'
 
 using namespace std;
-const int N = 10 + 1e1;
+const int N = 10 + int(1e1);
 
 void solve() {
 }
