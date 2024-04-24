@@ -99,13 +99,13 @@ def compilar_y_ejecutar_cpp(programa):
                print(f"Answer:\n{salida_esperada}")
 
    nombre_ejecutable = programa.replace(".cpp", "")
-   proceso_compilacion = subprocess.Popen(["g++ -std=c++17 -O2 -DLOCAL", programa, "-o", nombre_ejecutable],
+   proceso_compilacion = subprocess.Popen(["g++ -std=c++17 -O2", programa, "-o", nombre_ejecutable],
                                           stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
    _, errores_compilacion = proceso_compilacion.communicate()
    if proceso_compilacion.returncode == 0:
       ejecutar(nombre_ejecutable)
    else:
-      print(colored("Error de compilación.", "red"))
+      print(colored("Error de compilación:", "red"))
       print(errores_compilacion)
 
 
@@ -133,15 +133,15 @@ def ejecutar_java(programa):
 if __name__ == "__main__":
    """En Linux
       Para verificar todos los caso de prueba:
-      python3 lin_tester.py -test <programa>
+      python3 ../auto/lin_tester.py -test <programa>
    
       Para obtener los casos de prueba del problema:
-      python3 lin_tester.py -parse <id_contes>/<id_problema>
+      python3 ../auto/lin_tester.py -parse <id_contes>/<id_problema>
    """
-   if len(sys.argv) > 3 or (sys.argv[1] != "-parse" and sys.argv[1] != "-test"):
+   if len(sys.argv) > 3 or (sys.argv[1] != "-p" and sys.argv[1] != "-t"):
       print(colored("Mijito/a instrucción invalida!", "red"))
-   elif len(sys.argv) == 3 and sys.argv[1] == "-test":
+   elif len(sys.argv) == 3 and sys.argv[1] == "-t":
       main(sys.argv[2])
-   elif len(sys.argv) == 3 and sys.argv[1] == "-parse":
+   elif len(sys.argv) == 3 and sys.argv[1] == "-p":
       id_contest, id_problema = sys.argv[2].split("/")
       obtener_input_output(id_contest, id_problema)
