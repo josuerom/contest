@@ -18,9 +18,19 @@ public:
    }
 
    void tcReading() {
+      ios::sync_with_stdio(false);
+      cin.tie(0); cout.tie(0);
       int tt;
       cin >> tt;
+#ifdef LOCAL
+      int nc = 1;
+      while (tt--) {
+         cout << "Case #" << nc++ << ":\n";
+         solveOne();
+      }
+#else
       while (tt--) solveOne();
+#endif
    }
 };
 
