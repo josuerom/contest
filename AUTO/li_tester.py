@@ -1,6 +1,10 @@
-#  author: josuerom - created: 21/04/24 20:00:03
+"""
+   author: josuerom
+   created: 25/04/24 10:45:39
+"""
 import sys
 import os
+import shutil
 import subprocess
 import requests
 from termcolor import colored
@@ -20,8 +24,26 @@ def main(programa):
       return
 
 
+def copiar_plantilla(lenguaje, destino, nombre):
+   origen = f"/home/josuerom/Workspace/contest/TEMPLATES"
+   if lenguaje == "cpp":
+      ruta_origen = os.path.join(origen, "template.cpp")
+   elif lenguaje == "java":
+      ruta_origen = os.path.join(origen, "template.java")
+   elif lenguaje == "py":
+      ruta_origen = os.path.join(origen, "template.py")
+   else:
+      print(colored(f"No existe plantilla para .{lenguaje}", "red"))
+      return
+   ruta_destino = os.path.join(destino, nombre)
+   if not os.path.exists(destino):
+      os.makedirs(destino)
+   shutil.copyfile(ruta_origen, ruta_destino)
+   print(colored(f"Plantilla copiada con éxito.", "green"))
+
+
 def ruta_samples():
-   ruta_por_defecto = f"/home/josuerom/Workspace/codeforces/samples"
+   ruta_por_defecto = f"/home/josuerom/Workspace/codeforces/src/samples"
    return ruta_por_defecto
 
 
@@ -47,13 +69,13 @@ def obtener_input_output(id_contest, id_problema):
          input_text = input_div.find('pre').get_text()
          output_text = output_div.find('pre').get_text()
          with open(f"{ruta_samples()}/in{i}.txt", "w") as input_file:
-               input_file.write(input_text.strip())
+            input_file.write(input_text.strip())
          print(colored(f"Test case {i} copied ☑️", "yellow"))
          with open(f"{ruta_samples()}/ans{i}.txt", "w") as output_file:
-               output_file.write(output_text.strip())
+            output_file.write(output_text.strip())
          print(colored(f"Answer {i} copied ☑️", "yellow"))
    else:
-      print("Acá hay un error fatal:", colored(f"{url}", "red"))
+      print("Error fatal en:", colored(f"{url}", "red"))
 
 
 def ejecutar_python(programa):
@@ -133,15 +155,21 @@ def ejecutar_java(programa):
 if __name__ == "__main__":
    """En Linux
       Para verificar todos los caso de prueba:
-      python3 ../auto/lin_tester.py -t <programa>
+      python3 li_tester.py -t <programa>
    
       Para obtener los casos de prueba del problema:
-      python3 ../auto/lin_tester.py -p <id_contest>/<id_problema>
+      python3 li_tester.py -p <id_contest>/<id_problema>
+
+      Para copiar y pegar la plantilla:
+      python3 li_tester.py -g <lenguaje> <destino> <nombre_programa>
    """
-   if len(sys.argv) > 3 or (sys.argv[1] != "-p" and sys.argv[1] != "-t"):
+   if sys.argv[1] != "-p" and sys.argv[1] != "-t" and sys.argv[1] != "-g":
       print(colored("Mijito/a instrucción invalida!", "red"))
    elif len(sys.argv) == 3 and sys.argv[1] == "-t":
       main(sys.argv[2])
    elif len(sys.argv) == 3 and sys.argv[1] == "-p":
       id_contest, id_problema = sys.argv[2].split("/")
       obtener_input_output(id_contest, id_problema)
+   elif len(sys.argv) == 5 and sys.argv[1] == "-g":
+      lenguaje, destino, nombre = sys.argv[2], sys.argv[3], sys.argv[4]
+      copiar_plantilla(lenguaje, destino, nombre)
