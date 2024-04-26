@@ -2,8 +2,9 @@
    author: josuerom
    created: 25/04/24 10:45:39
 """
-import sys
 import os
+import re
+import sys
 import shutil
 import subprocess
 import requests
@@ -64,23 +65,30 @@ def eliminar_archivos_de_entrada():
       subprocess.run(["rm", "-rf", archivos_txt])
 
 
-def obtener_input_output(id_contest, id_problema):
+def extraer_subsecuencias(html_string):
+   subsecuencias = re.findall(r'<pre>(.*?)</pre>', html_string, re.DOTALL)
+   subsecuencias = [re.sub(r'<br/>', '\n', sub) for sub in subsecuencias]
+   resultado = ''.join(subsecuencias)
+   return resultado
+
+
+def obtener_input_answer(id_contest, id_problema):
    eliminar_archivos_de_entrada()
    url = f"https://codeforces.com/contest/{id_contest}/problem/{id_problema}"
    response = requests.get(url)
    if response.status_code == 200:
       soup = BeautifulSoup(response.text, 'html.parser')
       input_divs = soup.find_all('div', class_='input')
-      output_divs = soup.find_all('div', class_='output')
+      answer_divs = soup.find_all('div', class_='output')
 
-      for i, (input_div, output_div) in enumerate(zip(input_divs, output_divs), start=1):
-         input_text = input_div.find('pre').get_text()
-         output_text = output_div.find('pre').get_text()
+      for i, (input_div, answer_div) in enumerate(zip(input_divs, answer_divs), start=1):
+         input_text = extraer_subsecuencias(str(input_div.find('pre')))
+         answer_text = extraer_subsecuencias(str(answer_div.find('pre')))
          with open(f"{ruta_samples()}/in{i}.txt", "w") as input_file:
             input_file.write(input_text.strip())
          print(colored(f"Test case {i} copied ☑️", "yellow"))
-         with open(f"{ruta_samples()}/ans{i}.txt", "w") as output_file:
-            output_file.write(output_text.strip())
+         with open(f"{ruta_samples()}/ans{i}.txt", "w") as answer_file:
+            answer_file.write(answer_text.strip())
          print(colored(f"Answer {i} copied ☑️", "yellow"))
    else:
       print("Error fatal en:", colored(f"{url}", "red"))
@@ -177,7 +185,7 @@ if __name__ == "__main__":
       probar_solucion(sys.argv[2])
    elif size_args == 3 and sys.argv[1] == "-p":
       id_contest, id_problema = sys.argv[2].split("/")
-      obtener_input_output(id_contest, id_problema)
+      obtener_input_answer(id_contest, id_problema)
    elif size_args == 4 and sys.argv[1] == "-g":
       destino = sys.argv[2]
       nombre, lenguaje = sys.argv[3].split(".")
