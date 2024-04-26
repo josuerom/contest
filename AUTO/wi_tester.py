@@ -2,8 +2,9 @@
    author: josuerom
    created: 25/04/24 09:11:04
 """
-import sys
 import os
+import re
+import sys
 import shutil
 import subprocess
 import requests
@@ -11,16 +12,16 @@ from termcolor import colored
 from bs4 import BeautifulSoup
 
 
-def correr_programa(programa):
+def probar_solucion(programa):
    if programa.strip().endswith(".py"):
       ejecutar_python(programa)
    elif programa.strip().endswith(".cpp"):
-      compilar_ejecutar_cpp(programa)
+      compilar_y_ejecutar_cpp(programa)
    elif programa.strip().endswith(".java"):
       ejecutar_java(programa)
    else:
       extension = programa.split(".")[-1]
-      print(colored(f"No hay soporte para programas .{extension}", "red"))
+      print(colored(f"No hay soporte para programas .{extension}", "magenta"))
 
 
 def copiar_plantilla(destino, nombre, lenguaje):
@@ -63,26 +64,33 @@ def eliminar_archivos_de_entrada():
       subprocess.run(["del", archivos_txt], shell=True)
 
 
-def obtener_input_output(id_contest, id_problema):
+def extraer_subsecuencias(html_string):
+   subsecuencias = re.findall(r'<pre>(.*?)</pre>', html_string, re.DOTALL)
+   subsecuencias = [re.sub(r'<br/>', '\n', sub) for sub in subsecuencias]
+   resultado = ''.join(subsecuencias)
+   return resultado
+
+
+def obtener_input_answer(id_contest, id_problema):
    eliminar_archivos_de_entrada()
    url = f"https://codeforces.com/contest/{id_contest}/problem/{id_problema}"
    response = requests.get(url)
    if response.status_code == 200:
       soup = BeautifulSoup(response.text, 'html.parser')
       input_divs = soup.find_all('div', class_='input')
-      output_divs = soup.find_all('div', class_='output')
-      for i, (input_div, output_div) in enumerate(zip(input_divs, output_divs), start=1):
-         input_text = input_div.find('pre').get_text()
-         output_text = output_div.find('pre').get_text()
-         with open(f"{ruta_samples()}\\in{i}.txt", "w") as input_file:
-               input_file.write(input_text.strip())
+      answer_divs = soup.find_all('div', class_='output')
+
+      for i, (input_div, answer_div) in enumerate(zip(input_divs, answer_divs), start=1):
+         input_text = extraer_subsecuencias(str(input_div.find('pre')))
+         answer_text = extraer_subsecuencias(str(answer_div.find('pre')))
+         with open(f"{ruta_samples()}/in{i}.txt", "w") as input_file:
+            input_file.write(input_text.strip())
          print(colored(f"Test case {i} copied ☑️", "yellow"))
-         with open(f"{ruta_samples()}\\ans{i}.txt", "w") as output_file:
-               output_file.write(output_text.strip())
+         with open(f"{ruta_samples()}/ans{i}.txt", "w") as answer_file:
+            answer_file.write(answer_text.strip())
          print(colored(f"Answer {i} copied ☑️", "yellow"))
    else:
       print("Error fatal en:", colored(f"{url}", "red"))
-
 
 def ejecutar_python(programa):
    for i in range(1, 11):
@@ -105,8 +113,8 @@ def ejecutar_python(programa):
          print(f"Answer:\n{salida_esperada}")
 
 
-def compilar_ejecutar_cpp(programa):
-   def ejecutar(programa):
+def compilar_y_ejecutar_cpp(programa):
+   def ejecutar_cpp(programa):
       for i in range(1, 11):
          entrada_estandar = f"{ruta_samples()}\\in{i}.txt"
          respuesta_correcta = f"{ruta_samples()}\\ans{i}.txt"
@@ -132,7 +140,7 @@ def compilar_ejecutar_cpp(programa):
                                           stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
    _, salida_compilacion = proceso_compilacion.communicate()
    if proceso_compilacion.returncode == 0:
-      ejecutar(nombre_ejecutable)
+      ejecutar_cpp(nombre_ejecutable)
    else:
       print(colored("Error de compilación:\n", "red"), salida_compilacion)
 
@@ -173,10 +181,10 @@ if __name__ == "__main__":
    if size_args > 4 or sys.argv[1] != "-p" and sys.argv[1] != "-t" and sys.argv[1] != "-g":
       print(colored("Mijito/a instrucción invalida!", "red"))
    elif size_args == 3 and sys.argv[1] == "-t":
-      correr_programa(sys.argv[2])
+      probar_solucion(sys.argv[2])
    elif size_args == 3 and sys.argv[1] == "-p":
       id_contest, id_problema = sys.argv[2].split("/")
-      obtener_input_output(id_contest, id_problema)
+      obtener_input_answer(id_contest, id_problema)
    elif size_args == 4 and sys.argv[1] == "-g":
       destino = sys.argv[2]
       nombre, lenguaje = sys.argv[3].split(".")
