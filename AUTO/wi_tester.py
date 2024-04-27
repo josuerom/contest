@@ -3,7 +3,6 @@
    created: 25/04/24 10:45:39
 """
 import os
-import re
 import sys
 import shutil
 import subprocess
@@ -106,9 +105,10 @@ def parsear_html(html_content):
 def formatear_captura(captura):
    captura = captura.strip().split("\n")
    limpieza = []
-   for i in captura:
-      if i != "Input" and i != "Output" and i != "":
-         limpieza.append(i)
+   for i in range(len(captura) - 1):
+      linea = captura[i].strip()
+      if linea != "Input" and linea != "Output" and linea == True and i < 3:
+         limpieza.append(linea)
    return '\n'.join(limpieza)
 
 
