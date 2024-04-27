@@ -12,7 +12,6 @@ import urllib.request
 def obtenerNombreProblemas(contestId):
     url = f"https://codeforces.com/api/contest.standings?contestId={contestId}&from=1&count=1&showUnofficial=true"
     problem_set = []
-
     try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -20,12 +19,10 @@ def obtenerNombreProblemas(contestId):
         req = urllib.request.Request(url, headers=headers)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read().decode('utf-8'))
-
         s = str(data)
         s = re.sub(r"[.:,{}()\[\]]", "", s)
         s = re.sub(r"' '", " ", s)
         s = re.sub(r"'", "", s).split(" ")
-
         ind = title = ""
         for i in range(0, len(s)):
             if s[i] == 'index':
@@ -43,7 +40,6 @@ def obtenerNombreProblemas(contestId):
                 ans = re.sub(r"[.!'\-,:;=+&%/\\]", "", f"{ind} {title}")
                 problem_set.append(ans.replace(" ", "_"))
             title = ""
-
         problem_set.remove(problem_set[0])
         return problem_set
     except urllib.error.URLError as e:
@@ -51,33 +47,34 @@ def obtenerNombreProblemas(contestId):
 
 
 def crear_dirs(contestId):
-    ruta_principal = r"/home/josuerom/workspace/contest/CF"
+    ruta_principal = f"/home/josuerom/workspace/contest/CF"
     ruta_contest = os.path.join(ruta_principal, contestId)
 
     if os.path.exists(ruta_contest):
         print(f"El contest ya existe 😞.")
-    else:
-        n = int(input("Cuántos problemas genero: "))
-        nombreP = obtenerNombreProblemas(contestId)
-        os.makedirs(ruta_contest)
+        return
 
-        print("Se crearon estos archivos:\n-----------------------------")
-        open(f"{ruta_contest}\\in1", 'w')
+    n = int(input("Cuántos problemas genero: "))
+    nombreP = obtenerNombreProblemas(contestId)
+    os.makedirs(ruta_contest)
 
-        for i in range(0, n):
-            invalid_chars = r'_<>:"/\|?*'
-            sanitized_title = ''.join(
-                c if c not in invalid_chars else '_' for c in nombreP[i])
-            file_path = os.path.join(ruta_contest, f"{sanitized_title}.cpp")
-            with open(file_path, 'w'):
-                pass
-            print(f"{sanitized_title}.cpp")
+    print("Se crearon estos archivos:\n-----------------------------")
+    open(f"{ruta_contest}\\in1", 'w')
 
-        print("in1\n--------------------------")
-        print(f"Iniciando su VSCode 😁😁...", end='\n')
+    for i in range(0, n):
+        invalid_chars = r'_<>:"/\|?*'
+        sanitized_title = ''.join(
+            c if c not in invalid_chars else '_' for c in nombreP[i])
+        file_path = os.path.join(ruta_contest, f"{sanitized_title}.cpp")
+        with open(file_path, 'w'):
+            pass
+        print(f"{sanitized_title}.cpp")
 
-        subprocess.run(f"code {ruta_dir}", shell=True)
-        subprocess.run("pkill -f bash", shell=True)
+    print("in1\n--------------------------")
+    print(f"Iniciando su VSCode 😁😁...", end='\n')
+
+    subprocess.run(f"code {ruta_dir}", shell=True)
+    subprocess.run("pkill -f bash", shell=True)
 
 
 if __name__ == '__main__':
