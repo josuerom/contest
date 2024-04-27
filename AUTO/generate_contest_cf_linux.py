@@ -47,7 +47,7 @@ def obtenerNombreProblemas(contestId):
 
 
 def crear_dirs(contestId):
-    ruta_principal = f"/home/josuerom/workspace/contest/CF"
+    ruta_principal = f"/home/josuerom/Workspace/contest/CF"
     ruta_contest = os.path.join(ruta_principal, contestId)
 
     if os.path.exists(ruta_contest):
