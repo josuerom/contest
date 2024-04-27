@@ -17,7 +17,7 @@ def buscar_archivo_pdf(dir_descargas):
 
 
 def crear_dirs(round):
-    ruta_base_rpc = r"/home/josuerom/Workspace/contest/RPC/"
+    ruta_base_rpc = f"/home/josuerom/Workspace/contest/RPC"
     ruta_base_anio = os.path.join(ruta_base_rpc, "2024")
     ruta_del_round = os.path.join(ruta_base_anio, f"Rnd{round}")
 
@@ -46,7 +46,7 @@ def crear_dirs(round):
     if encontro_pdf:
         shutil.move(obtener_pdf, ruta_del_round)
 
-    template = r"/home/josuerom/Workspace/contest/TEMPLATES/tem_2bits.cpp"
+    template = f"/home/josuerom/Workspace/contest/TEMPLATES/tem_2bits.cpp"
     lista_id = ["A", "B", "C", "D"]
 
     for problemID in lista_id:
