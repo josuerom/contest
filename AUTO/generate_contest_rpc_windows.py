@@ -28,7 +28,7 @@ def crear_dirs(round):
         print("\033[94mMijito/a ese round ya existe 😞.\033[0m")
         return
     
-    ruta_descargas = r"c:\users\josuerom\downloads"
+    ruta_descargas = f"c:\\users\\josuerom\\downloads"
     archivo_pdf = buscar_archivo_pdf(ruta_descargas)
     obtener_pdf, encontro_pdf = None, False
 
@@ -46,7 +46,7 @@ def crear_dirs(round):
     if encontro_pdf:
         shutil.move(obtener_pdf, ruta_del_round)
 
-    template = r"d:\workspace\contest\templates\tem_2bits.cpp"
+    template = f"d:\\workspace\\contest\\templates\\tem_2bits.cpp"
     lista_id = ["A", "B", "C", "D"]
 
     for problemID in lista_id:
