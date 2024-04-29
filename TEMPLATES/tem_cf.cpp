@@ -8,7 +8,7 @@ using namespace std;
 #define ll  long long
 #define br  '\n'
 
-const int N = 10 + 1e1;
+const int N = int(1e1) + 10;
 
 void solve() {
 }
