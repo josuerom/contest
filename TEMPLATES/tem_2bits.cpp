@@ -18,8 +18,6 @@ public:
    }
 
    void tcReading() {
-      ios::sync_with_stdio(false);
-      cin.tie(0); cout.tie(0);
       int tt;
       cin >> tt;
 #ifdef LOCAL
@@ -35,6 +33,8 @@ public:
 };
 
 int main() {
+   ios::sync_with_stdio(false);
+   cin.tie(0); cout.tie(0);
    RPCProblemA me;
    // me.tcReading();
    // me.solveOne();
