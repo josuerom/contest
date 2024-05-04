@@ -9,7 +9,7 @@ using namespace std;
 #define ll  long long
 #define br  '\n'
 
-class RPCProblemA {
+class RPCProblem {
 public:
    static const int N = int(1e5) + 30;
    int a[N], n;
@@ -34,8 +34,8 @@ public:
 
 int main() {
    ios::sync_with_stdio(false);
-   cin.tie(0); cout.tie(0);
-   RPCProblemA me;
+   cin.tie(0);
+   RPCProblem me;
    // me.tcReading();
    // me.solveOne();
    system("pause");
