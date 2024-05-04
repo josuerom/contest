@@ -47,15 +47,24 @@ def crear_dirs(round):
         shutil.move(obtener_pdf, ruta_del_round)
 
     template = f"d:\\workspace\\contest\\templates\\tem_2bits.cpp"
-    lista_id = ["A", "B", "C", "D"]
+    lista_id = input("ID of the problems -> ").upper().split()
 
     for problemID in lista_id:
         ruta_rpc = os.path.join(ruta_del_round, problemID)
-        os.makedirs(ruta_rpc)
+        os.makedirs(ruta_rpc, exist_ok=True)
         archivo_base = os.path.join(ruta_rpc, f"{problemID}.cpp")
         shutil.copyfile(template, archivo_base)
-        archivo_base = os.path.join(ruta_rpc, "in1")
-        with open(archivo_base, 'x'):
+        with open(archivo_base, 'r') as plantilla:
+           lineas = plantilla.readlines()
+        with open(archivo_base, 'w') as plantilla:
+           for linea in lineas:
+              if linea.strip().startswith("class"):
+                 linea = "class RPCProblem" + problemID + " {\n"
+              if linea.strip().startswith("RPCProblem"):
+                 linea = "\tRPCProblem" + problemID + " me;\n"
+              plantilla.write(linea)
+        archivo_in = os.path.join(ruta_rpc, "in1")
+        with open(archivo_in, 'x'):
             pass
 
     subprocess.run(f"code {ruta_del_round}", shell=True)
