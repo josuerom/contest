@@ -12,9 +12,9 @@ using namespace std;
 class RPCProblem {
 public:
    static const int N = int(1e5) + 30;
-   int a[N], n;
 
    void solveOne() {
+      int a[N], n;
    }
 
    void tcReading() {
