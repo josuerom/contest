@@ -61,7 +61,7 @@ def crear_dirs(round):
               if linea.strip().startswith("class"):
                  linea = "class RPCProblem" + problemID + " {\n"
               if linea.strip().startswith("RPCProblem"):
-                 linea = "RPCProblem" + problemID + " me;\n"
+                 linea = "\tRPCProblem" + problemID + " me;\n"
               plantilla.write(linea)
         archivo_in = os.path.join(ruta_rpc, "in1")
         with open(archivo_in, 'x'):
