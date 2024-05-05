@@ -11,10 +11,7 @@ using namespace std;
 
 class RPCProblem {
 public:
-   static const int N = int(1e5) + 30;
-
    void solveOne() {
-      int a[N], n;
    }
 
    void tcReading() {
@@ -36,8 +33,6 @@ int main() {
    ios::sync_with_stdio(false);
    cin.tie(0);
    RPCProblem me;
-   // me.tcReading();
-   // me.solveOne();
-   system("pause");
+   me.();
    return 0;
 }
