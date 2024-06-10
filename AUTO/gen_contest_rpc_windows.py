@@ -20,7 +20,7 @@ def buscarDocumentoPDF(dir_descargas):
 
 
 def generadorConcursoRPCWindows():
-   ronda, año = re.split(r'[ \-/]+', input("Ronda y año -> "))
+   ronda, año = re.split(r'[ \-/]+', input("\033[93mRonda y año ->\033[0m "))
    ruta_base_rpc = r"d:\workspace\contest\rpc"
    ruta_base_año = os.path.join(ruta_base_rpc, año)
    ruta_ronda = os.path.join(ruta_base_año, f"Rnd{ronda}")
@@ -52,10 +52,10 @@ def generadorConcursoRPCWindows():
    tem_java = f"d:\\workspace\\contest\\templates\\template.java"
    tem_py = f"d:\\workspace\\contest\\templates\\template.py"
    
-   lista_id = input("Qué problemas intentará resolver -> ").upper().split()
+   lista_id = input("\033[93mQué problemas intentará resolver ->\033[0m ").upper().split()
 
    while True:
-      template = int(input("Seleccione el lenguaje:\n1. cpp\n2. java\n3. python\n-> "))
+      template = int(input("\033[93mSeleccione el lenguaje:\n1. cpp\n2. java\n3. python\n->\033[0m "))
       ext = None
       if template == 1:
          template, ext = tem_cpp, "cpp"
@@ -88,7 +88,7 @@ def generadorConcursoRPCWindows():
       with open(archivo_in, 'x'):
          pass
 
-   print("\033[93mIniciando la ronda con VSCode...\033[0m")
+   print("\033[94mIniciando la ronda con VSCode...\033[0m")
 
    subprocess.run(f"code {ruta_ronda}", shell=True)
    subprocess.run("taskkill /f /im cmd.exe", shell=True)

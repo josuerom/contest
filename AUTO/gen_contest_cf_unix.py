@@ -48,19 +48,19 @@ def consultarNombreProblema(contest_id):
 
 
 def generadorConcursoCFUnix():
-   contest_id = input("ContestID -> ")
+   contest_id = input("\033[93mContestID ->\033[0m ")
    root = f"/home/josuerom/Workspace/contest/CF"
    contest_route = os.path.join(root, contest_id)
 
    if os.path.exists(contest_route):
-      print(f"The contest already exists 😞.")
+      print(f"\033[91mThe contest already exists 😞.\033[0m")
       return
 
-   n = int(input("How many problems -> "))
+   n = int(input("\033[93mHow many problems ->\033[0m "))
    nameProblem = consultarNombreProblema(contest_id)
    
    while True:
-      option = int(input("Select the language:\n1. cpp\n2. java\n3. python\n-> "))
+      option = int(input("\033[93mSelect the language:\n1. cpp\n2. java\n3. python\n->\033[0m "))
       extension = None
       if option == 1:
          extension = "cpp"
@@ -75,7 +75,7 @@ def generadorConcursoCFUnix():
 
    os.makedirs(contest_route)
 
-   print("These files were created:\n-----------------------------")
+   print("\033[94mThese files were created:\n-----------------------------\033[0m")
    open(f"{contest_route}\\in1", 'w')
 
    for i in range(0, n):
@@ -87,8 +87,8 @@ def generadorConcursoCFUnix():
          pass
       print(f"{file_title}.{extension}")
 
-   print("in1\n-----------------------------")
-   print(f"Starting contest with VSCode 😁😁...", end='\n')
+   print("in1\n\033[94m-----------------------------\033[0m")
+   print(f"\033[94mStarting contest with VSCode 😁😁...\033[0m", end='\n')
 
    subprocess.run(f"code {contest_route}", shell=True)
    subprocess.run("pkill -f bash", shell=True)
