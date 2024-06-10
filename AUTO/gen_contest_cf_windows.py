@@ -1,5 +1,8 @@
-# Creación de directorios y archivos fuentes para Rounds de Codeforces
-# Autor: josuerom  -  Fecha: 27/06/23 06:17:05
+"""
+   Generador de concursos automáticos de codeforces, enfocado en sistemas Windows
+   Autor: josuerom
+   Fecha: 09/06/24
+"""
 import os
 import subprocess
 import re
@@ -7,8 +10,8 @@ import json
 import urllib.request
 
 
-def obtenerNombreProblemas(contestId):
-   url = f"https://codeforces.com/api/contest.standings?contestId={contestId}&from=1&count=1&showUnofficial=true"
+def consultarNombreProblema(contest_id):
+   url = f"https://codeforces.com/api/contest.standings?contestId={contest_id}&from=1&count=1&showUnofficial=true"
    problem_set = []
    try:
       headers = {
@@ -44,36 +47,51 @@ def obtenerNombreProblemas(contestId):
       print(f"Error {e}")
 
 
-def crear_dirs():
-   contestId = input("ContestID -> ")
-   ruta_principal = f"d:\\workspace\\contest\\cf"
-   ruta_contest = os.path.join(ruta_principal, contestId)
+def generadorConcursoCFWindows():
+   contest_id = input("ContestID -> ")
+   root = f"d:\\workspace\\contest\\cf"
+   contest_route = os.path.join(root, contest_id)
 
-   if os.path.exists(ruta_contest):
+   if os.path.exists(contest_route):
       print(f"The contest already exists 😞.")
       return
 
    n = int(input("How many problems -> "))
-   nombreP = obtenerNombreProblemas(contestId)
-   os.makedirs(ruta_contest)
+   nameProblem = consultarNombreProblema(contest_id)
+
+   while True:
+      option = int(input("Select the language:\n1. cpp\n2. java\n3. python\n-> "))
+      extension = None
+      if option == 1:
+         extension = "cpp"
+      elif option == 2:
+         extension = "java"
+      elif option == 3:
+         extension = "py"
+      else:
+         print("\033[91mInvalid option. Try again.\033[0m")
+         continue
+      break
+
+   os.makedirs(contest_route)
 
    print("These files were created:\n-----------------------------")
-   open(f"{ruta_contest}\\in1", 'w')
+   open(f"{contest_route}\\in1", 'w')
 
    for i in range(0, n):
       invalid_chars = r'_<>:"/\|?*'
-      sanitized_title = ''.join(
-         c if c not in invalid_chars else '_' for c in nombreP[i])
-      with open(f"{ruta_contest}\\{sanitized_title}.cpp", 'w'):
+      file_title = ''.join(
+         c if c not in invalid_chars else '_' for c in nameProblem[i])
+      with open(f"{contest_route}\\{file_title}.{extension}", 'w'):
          pass
-      print(f"{sanitized_title}.cpp")
+      print(f"{file_title}.{extension}")
 
    print("in1\n-----------------------------")
-   print(f"Starting your VSCode 😁😁...", end='\n')
+   print(f"Starting contest with VSCode 😁😁...", end='\n')
 
-   subprocess.run(f"code {ruta_contest}", shell=True)
+   subprocess.run(f"code {contest_route}", shell=True)
    subprocess.run("taskkill /f /im cmd.exe", shell=True)
 
 
 if __name__ == '__main__':
-   crear_dirs()
+   generadorConcursoCFWindows()

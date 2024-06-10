@@ -1,5 +1,8 @@
-# Creación de directorios y archivos fuentes para Rounds de la RPC
-# Autor: josuerom - Fecha: 27/06/23 15:34:40
+"""
+   Generador de rondas automático para la Red de programación Colombiana (RPC) para sistemas Windows
+   Autor: josuerom
+   Fecha: 10/06/24
+"""
 import os
 import re
 import glob
@@ -7,7 +10,7 @@ import shutil
 import subprocess
 
 
-def buscar_archivo_pdf(dir_descargas):
+def buscarDocumentoPDF(dir_descargas):
    archivos_pdf = glob.glob(os.path.join(dir_descargas, "*.pdf"))
    for archivo in archivos_pdf:
       nombre_archivo = os.path.basename(archivo)
@@ -16,21 +19,21 @@ def buscar_archivo_pdf(dir_descargas):
    return None
 
 
-def crear_dirs():
-   rnd, anio = input("Round/Year -> ").split("/")
+def generadorConcursoRPCWindows():
+   ronda, año = re.split(r'[ \-/]+', input("Ronda y año -> "))
    ruta_base_rpc = r"d:\workspace\contest\rpc"
-   ruta_base_anio = os.path.join(ruta_base_rpc, anio)
-   ruta_del_round = os.path.join(ruta_base_anio, f"Rnd{rnd}")
+   ruta_base_año = os.path.join(ruta_base_rpc, año)
+   ruta_ronda = os.path.join(ruta_base_año, f"Rnd{ronda}")
 
-   if not os.path.exists(ruta_base_anio):
-      os.makedirs(ruta_base_anio)
+   if not os.path.exists(ruta_base_año):
+      os.makedirs(ruta_base_año)
 
-   if os.path.exists(ruta_del_round):
-      print("\033[94mMijito/a ese round ya existe 😞.\033[0m")
+   if os.path.exists(ruta_ronda):
+      print("\033[91mMijito/a ese round ya existe 😞.\033[0m")
       return
    
    ruta_descargas = f"c:\\users\\josuerom\\downloads"
-   archivo_pdf = buscar_archivo_pdf(ruta_descargas)
+   archivo_pdf = buscarDocumentoPDF(ruta_descargas)
    obtener_pdf, encontro_pdf = None, False
 
    if archivo_pdf:
@@ -38,29 +41,35 @@ def crear_dirs():
       obtener_pdf = os.path.join(ruta_descargas, capturar_pdf)
       encontro_pdf = True
    else:
-      print("\033[91mMijito/a no pude encontrar el PDF.\033[0m")
+      print("\033[91mMijito/a no encontré el problemSet.\033[0m")
 
-   os.makedirs(ruta_del_round)
+   os.makedirs(ruta_ronda)
+
    if encontro_pdf:
-      shutil.move(obtener_pdf, ruta_del_round)
+      shutil.move(obtener_pdf, ruta_ronda)
 
    tem_cpp = f"d:\\workspace\\contest\\templates\\tem_2bits.cpp"
    tem_java = f"d:\\workspace\\contest\\templates\\template.java"
    tem_py = f"d:\\workspace\\contest\\templates\\template.py"
    
-   lista_id = input("ID of the problems -> ").upper().split()
+   lista_id = input("Qué problemas intentará resolver -> ").upper().split()
 
-   template = input("Language -> ").lower()
-   ext = None
-   if template == "cpp":
-      template, ext = tem_cpp, "cpp"
-   elif template == "java":
-      template, ext = tem_java, "java"
-   elif template == "py":
-      template, ext = tem_py, "py"
+   while True:
+      template = int(input("Seleccione el lenguaje:\n1. cpp\n2. java\n3. python\n-> "))
+      ext = None
+      if template == 1:
+         template, ext = tem_cpp, "cpp"
+      elif template == 2:
+         template, ext = tem_java, "java"
+      elif template == 3:
+         template, ext = tem_py, "py"
+      else:
+         print("\033[91mMijito/a opción inválida. Intente de nuevo.\033[0m")
+         continue
+      break
 
    for problemID in lista_id:
-      ruta_rpc = os.path.join(ruta_del_round, problemID)
+      ruta_rpc = os.path.join(ruta_ronda, problemID)
       os.makedirs(ruta_rpc, exist_ok=True)
       archivo_base = os.path.join(ruta_rpc, f"{problemID}.{ext}")
       shutil.copyfile(template, archivo_base)
@@ -79,9 +88,11 @@ def crear_dirs():
       with open(archivo_in, 'x'):
          pass
 
-   subprocess.run(f"code {ruta_del_round}", shell=True)
+   print("\033[93mIniciando la ronda con VSCode...\033[0m")
+
+   subprocess.run(f"code {ruta_ronda}", shell=True)
    subprocess.run("taskkill /f /im cmd.exe", shell=True)
 
 
 if __name__ == '__main__':
-   crear_dirs()
+   generadorConcursoRPCWindows()
