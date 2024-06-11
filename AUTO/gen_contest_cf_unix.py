@@ -76,7 +76,7 @@ def generadorConcursoCFUnix():
    os.makedirs(contest_route)
 
    print("\033[94mThese files were created:\n-----------------------------\033[0m")
-   open(f"{contest_route}\\in1", 'w')
+   open(f"{contest_route}/in1", 'w')
 
    for i in range(0, n):
       invalid_chars = r'_<>:"/\|?*'
