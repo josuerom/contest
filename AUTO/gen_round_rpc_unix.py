@@ -91,7 +91,7 @@ def generadorRondaRPCUnix():
    print("\033[94mIniciando la ronda con VSCode...\033[0m")
 
    subprocess.run(f"code {ruta_ronda}", shell=True)
-   subprocess.run("pkill -f bash", shell=True)
+   # subprocess.run("pkill -f bash", shell=True)
 
 
 if __name__ == '__main__':

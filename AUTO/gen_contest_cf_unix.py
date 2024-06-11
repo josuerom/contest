@@ -91,7 +91,7 @@ def generadorConcursoCFUnix():
    print(f"\033[94mStarting contest with VSCode 😁😁...\033[0m", end='\n')
 
    subprocess.run(f"code {contest_route}", shell=True)
-   subprocess.run("pkill -f bash", shell=True)
+   # subprocess.run("pkill -f bash", shell=True)
 
 
 if __name__ == '__main__':
