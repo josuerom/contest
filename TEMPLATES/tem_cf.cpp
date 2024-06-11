@@ -3,10 +3,8 @@
  *   created: $%D%$/$%M%$/$%Y%$
 **/
 #include <bits/stdc++.h>
-using namespace std;
 
-#define ll  long long
-#define br  '\n'
+using namespace std;
 
 const int N = int(1e1) + 10;
 
@@ -19,5 +17,4 @@ int main() {
    int tt = 1;
    cin >> tt;
    while (tt--) solve();
-   return 0;
 }
